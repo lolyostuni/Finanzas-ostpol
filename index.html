@@ -242,6 +242,96 @@ table.hist{width:100%;border-collapse:collapse;min-width:780px}
   .budget th{font-size:10px;letter-spacing:.2px}
   .rep tr.final td{font-size:19px}
 }
+
+/* ===== Diseño teléfono: pestañas ===== */
+.tabbar,.pcards,.mlist,.cbar{display:none}
+@media (max-width:700px){
+  body{font-size:15px}
+  main{padding:14px 0 calc(92px + env(safe-area-inset-bottom))}
+  .brand h1{font-size:18px}.logo{width:30px;height:30px;font-size:16px}
+  /* solo se ve la sección de la pestaña activa */
+  body:not([data-tab=inicio]) [data-sec=inicio],
+  body:not([data-tab=nuevo]) [data-sec=nuevo],
+  body:not([data-tab=presupuesto]) [data-sec=presupuesto],
+  body:not([data-tab=calc]) [data-sec=calc],
+  body:not([data-tab=movs]) [data-sec=movs]{display:none!important}
+  .grid,.kpis{margin-bottom:12px}
+  .card{padding:16px;border-radius:18px}
+  .card h3{font-size:16px}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:40;
+    background:rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--line);
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+  .tabbar button{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;color:var(--muted);font-size:10.5px;font-weight:500;cursor:pointer}
+  .tabbar .icon{width:22px;height:22px}
+  .tabbar button.on{color:var(--wine)}
+  .tabbar button.on:not(.plus) .icon{stroke-width:2.2}
+  .tabbar .plus i{display:grid;place-items:center;width:46px;height:46px;border-radius:16px;background:var(--wine);color:#fff;margin-top:-20px;box-shadow:0 6px 16px rgba(109,26,54,.35)}
+  .tabbar .plus i .icon{stroke-width:2.4}
+  .tabbar .plus.on i{background:var(--wine2)}
+  /* Inicio: tarjetas por persona en vez de tabla */
+  #repCard .rep-wrap,#repCard h3 small{display:none}
+  .pcards{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+  .pcard{border:1px solid var(--line);border-radius:16px;padding:14px;border-top:4px solid var(--pc)}
+  .pcard .ph{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+  .pcard .ph b{font-family:"DM Serif Display",serif;font-weight:400;font-size:22px;color:var(--pc)}
+  .pcard .ph span{color:var(--muted);font-size:13px}
+  .pbig{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-radius:12px;padding:10px 12px;margin:6px 0}
+  .pbig small{font-size:13px;color:var(--ink);font-weight:600}
+  .pbig b{font-family:"DM Serif Display",serif;font-weight:400;font-size:24px;font-variant-numeric:tabular-nums}
+  .pbig.final{background:var(--wine);color:#fff}.pbig.final small{color:#fff}
+  .pbig.okb b{color:var(--ok);font-size:18px;font-family:Inter,sans-serif;font-weight:600}
+  .prow{display:flex;justify-content:space-between;gap:10px;padding:6px 2px;font-size:14px;color:var(--muted)}
+  .prow b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .psec{font-size:11px;text-transform:uppercase;letter-spacing:.6px;font-weight:600;color:var(--wine);margin:12px 2px 2px}
+  .note{font-size:13.5px}
+  /* Presupuesto: resumen por categoría, se despliega al tocar */
+  .budget thead,.budget tr:first-child{display:none}
+  .budget tr.cat td{padding:12px 10px;font-size:13px;cursor:pointer}
+  .budget tr.cat td::before{content:'▸ ';color:var(--muted)}
+  .budget tr.cat.open td::before{content:'▾ '}
+  .budget tr.cat td span{font-size:12.5px}
+  .cbar{display:block;height:7px;background:rgba(255,255,255,.75);border-radius:6px;margin-top:8px;overflow:hidden}
+  .cbar b{display:block;height:100%;border-radius:6px}
+  .budget tr.sub{display:none}
+  .budget tr.sub.show{display:table-row}
+  .budget{border-collapse:separate;border-spacing:0 6px}
+  .budget tr.tot td{font-size:15px}
+  /* Calculadora: cada fila como tarjeta */
+  .calc .table-wrap{overflow:visible;margin:0;padding:0}
+  .ctable{min-width:0;display:block}
+  .ctable thead{display:none}
+  .ctable tbody,.ctable tfoot{display:block}
+  .ctable tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;border:1px solid var(--line);border-radius:14px;margin-bottom:10px;align-items:center}
+  .ctable tbody td{border:0;padding:0}
+  .ctable tbody td:nth-child(1),.ctable tbody td:nth-child(2),.ctable tbody td:nth-child(5){grid-column:1/-1}
+  .ctable tbody td:nth-child(4)::before{content:'= ';color:var(--muted)}
+  .ctable tbody td:nth-child(4)::after{content:' USDT';color:var(--muted);font-weight:400;font-size:12px}
+  .ctable tbody td:nth-child(5){display:flex;justify-content:flex-end;gap:6px}
+  .ctable tbody td:nth-child(5) .btn{padding:9px 14px;font-size:13px}
+  .ctable td input,.ctable td select{padding:10px;font-size:15px}
+  .ctable tfoot tr{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 12px;padding:10px 4px;border-top:2px solid var(--ink)}
+  .ctable tfoot td{border:0;padding:0}
+  .ctable tfoot td:nth-child(2){order:5;width:100%}
+  .calc-top input,.calc-top select{font-size:15px;padding:9px}
+  .calc-actions .btn{flex:1 1 45%}
+  /* Movimientos: lista de tarjetas */
+  [data-sec=movs] .table-wrap{display:none}
+  .mlist{display:flex;flex-direction:column;gap:8px}
+  .mrow{border:1px solid var(--line);border-radius:14px;padding:12px;border-left:4px solid var(--mc,var(--line))}
+  .mrow .m1{display:flex;justify-content:space-between;gap:10px;font-weight:600}
+  .mrow .m1 .amt{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .mrow .m2{color:var(--muted);font-size:13.5px;margin-top:2px;display:flex;justify-content:space-between;gap:8px}
+  .mrow .m3{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:12.5px;color:var(--muted);gap:6px}
+  .mrow .m3 .row-actions .btn{padding:6px 10px}
+  .filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .filters .search{grid-column:1/-1}
+  .filters .chk{white-space:nowrap}
+  .filters input,.filters select{font-size:14px;padding:9px 10px;width:100%}
+  /* Formulario más cómodo */
+  .f input,.f select{padding:11px 12px;font-size:16px}
+  .seg label{padding:11px 6px;font-size:13.5px}
+  .who label{padding:11px;font-size:14px}
+}
 </style>
 </head>
 <body>
@@ -272,7 +362,7 @@ table.hist{width:100%;border-collapse:collapse;min-width:780px}
 </header>
 
 <main class="wrap">
-  <section class="kpis">
+  <section class="kpis" data-sec="inicio">
     <div class="kpi"><div class="lbl">Ingresos del mes</div><div class="val" id="kInc">$0,00</div><div class="sub" id="kIncSub">—</div></div>
     <div class="kpi"><div class="lbl">Gastos totales</div><div class="val" id="kExp">$0,00</div><div class="sub" id="kExpSub">—</div><div class="meter"><i id="kExpBar" style="width:0;background:var(--wine)"></i></div></div>
     <div class="kpi accent"><div class="lbl">Balance neto disponible</div><div class="val" id="kBal">$0,00</div><div class="sub" id="kBalSub">—</div></div>
@@ -281,7 +371,7 @@ table.hist{width:100%;border-collapse:collapse;min-width:780px}
 
   <section class="grid">
     <!-- Formulario -->
-    <div class="card span4" id="formCard">
+    <div class="card span4" id="formCard" data-sec="nuevo">
       <h3>Nuevo movimiento <small>Se guarda al instante</small></h3>
       <div class="editing-banner">✏️ Editando un movimiento existente</div>
       <form id="txForm" autocomplete="off">
@@ -317,22 +407,23 @@ table.hist{width:100%;border-collapse:collapse;min-width:780px}
     </div>
 
     <!-- Reparto -->
-    <div class="card span8">
+    <div class="card span8" data-sec="inicio" id="repCard">
       <h3>Reparto del mes <small id="repSub">según salarios</small></h3>
       <div class="legend2"><span id="pctA">—</span><span id="pctB">—</span></div>
       <div class="pctbar"><i id="barA" style="background:var(--wine);width:50%"></i><i id="barB" style="background:var(--copper);width:50%"></i></div>
-      <div style="overflow-x:auto"><table class="rep" id="repTable"></table></div>
+      <div class="rep-wrap" style="overflow-x:auto"><table class="rep" id="repTable"></table></div>
+      <div class="pcards" id="pCards"></div>
       <div class="note" id="repNote" style="display:none"></div>
     </div>
 
     <!-- Presupuesto -->
-    <div class="card span7">
+    <div class="card span7" data-sec="presupuesto">
       <h3>Presupuesto mensual <span style="display:flex;gap:6px"><small id="budSub"></small><button class="btn sm" id="editCatsBtn">✏️ Categorías</button></span></h3>
       <div style="overflow-x:auto"><table class="budget" id="budget"></table></div>
       <div class="hint">Toca un monto de la columna <b>Presupuesto</b> para editarlo. El cambio se aplica a este mes y a los siguientes; los meses anteriores no cambian.</div>
     </div>
 
-    <div class="span5 stack">
+    <div class="span5 stack" data-sec="presupuesto">
       <div class="card">
         <h3>Gastos por categoría <small id="donutTotal"></small></h3>
         <div class="chart-box"><canvas id="donut"></canvas><div class="empty" id="donutEmpty">Sin gastos registrados este mes</div></div>
@@ -344,7 +435,7 @@ table.hist{width:100%;border-collapse:collapse;min-width:780px}
     </div>
 
     <!-- Calculadora -->
-    <div class="card span12 calc" id="calcCard">
+    <div class="card span12 calc" id="calcCard" data-sec="calc">
       <h3>Calculadora USDT → Bs <small>Calcula la tasa real del cambio y registra cada pago con esa tasa</small></h3>
       <div class="calc-top">
         <div class="calc-head">CALCULADORA</div>
@@ -372,7 +463,7 @@ table.hist{width:100%;border-collapse:collapse;min-width:780px}
   </section>
 
   <!-- Historial -->
-  <section class="card">
+  <section class="card" data-sec="movs">
     <h3>Historial de movimientos <small id="tCount"></small></h3>
     <div class="filters">
       <input class="search" id="qText" placeholder="Buscar descripción o categoría…">
@@ -390,6 +481,7 @@ table.hist{width:100%;border-collapse:collapse;min-width:780px}
         <tbody id="tBody"></tbody>
       </table>
     </div>
+    <div class="mlist" id="mList"></div>
     <div class="tfoot"><span id="tSum"></span><span id="tMore"></span></div>
   </section>
 </main>
@@ -434,6 +526,13 @@ table.hist{width:100%;border-collapse:collapse;min-width:780px}
   </div>
 </div>
 
+<nav class="tabbar" id="tabbar" aria-label="Secciones">
+  <button data-tab="inicio"><svg class="icon" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Inicio</span></button>
+  <button data-tab="presupuesto"><svg class="icon" viewBox="0 0 24 24"><path d="M12 3v9h9"/><circle cx="12" cy="12" r="9"/></svg><span>Presupuesto</span></button>
+  <button data-tab="nuevo" class="plus"><i><svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i><span>Nuevo</span></button>
+  <button data-tab="calc"><svg class="icon" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7.5h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg><span>Calculadora</span></button>
+  <button data-tab="movs"><svg class="icon" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg><span>Movimientos</span></button>
+</nav>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -754,7 +853,7 @@ function startEdit(id){
   $('#fFecha').value = t.fecha; $('#fSub').value = IDX[t.subId] ? t.subId : isTransfer(t) ? '__transfer' : '__otros'; $('#fDesc').value = t.descripcion;
   $('#fMon').value = t.moneda; $('#fMonto').value = t.moneda === 'BS' ? t.montoOriginal : t.monto; $('#fTasa').value = t.tasa || '';
   $('#formCard').classList.add('editing'); $('#submitBtn').textContent = 'Guardar cambios'; $('#cancelEdit').style.display = '';
-  updateFormUI(); $('#formCard').scrollIntoView({ behavior:'smooth', block:'start' });
+  updateFormUI(); if (isMobile()) setTab('nuevo'); else $('#formCard').scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
 /* ---------- Gráficas ---------- */
@@ -823,6 +922,21 @@ function renderReparto(s){
   if (A.ahorro || B.ahorro) h += row('Aporte a ahorro conjunto', A.ahorro, B.ahorro, '', '−');
   h += row('Le queda al final del mes', A.queda, B.queda, 'final');
   $('#repTable').innerHTML = h;
+  const pc = (p, nm, col) => {
+    const falta = p.pendiente >= 0.005 ? `<div class="pbig"><small>Falta por aportar a la casa</small><b>${money(p.pendiente)}</b></div>`
+      : `<div class="pbig okb"><small>Aporte a la casa</small><b>${p.pendiente <= -0.005 ? 'aportó ' + money(-p.pendiente) + ' de más' : '✓ al día'}</b></div>`;
+    const r = (l, v, op='') => `<div class="prow"><span>${l}</span><b>${op}${money(v)}</b></div>`;
+    return `<div class="pcard" style="--pc:${col}">
+      <div class="ph"><b>${esc(nm)}</b><span>${pct(p.pct)} · salario ${money(p.sal)}</span></div>
+      ${falta}
+      ${r('Le toca aportar', p.aporte)}${r('Ya pagó gastos de la casa', p.pagoComun, '−')}${r('Ya transferido a la cuenta Casa', p.transfer, '−')}
+      <div class="psec">Lo que le queda</div>
+      ${r('Salario − lo que le toca', p.personal)}${r('Su parte de lo que sobró', p.divRest, '+')}
+      ${p.extra ? r('Ingresos extra', p.extra, '+') : ''}${p.indiv ? r('Gastos individuales', p.indiv, '−') : ''}${p.ahorro ? r('Ahorro conjunto', p.ahorro, '−') : ''}
+      <div class="pbig final"><small>Le queda al final del mes</small><b>${money(p.queda)}</b></div>
+    </div>`;
+  };
+  $('#pCards').innerHTML = pc(A, cfg.nameA, COL_A) + pc(B, cfg.nameB, COL_B);
   const n = $('#repNote'), c = s.casa;
   n.style.display = (c.recibido || c.pagado) ? '' : 'none';
   n.innerHTML = `<b>Cuenta Casa:</b> recibió ${money(c.recibido)} en aportes y pagó ${money(c.pagado)} en gastos → saldo <b>${money(c.saldo)}</b>` +
@@ -837,17 +951,18 @@ function renderBudget(s){
   let h = '<tr><th>Categoría</th><th>Pagado</th><th>Presupuesto</th><th>Restante</th></tr>';
   cfg.categories.forEach(c => {
     const cp = c.subs.reduce((a, x) => a + (s.paidSub[x.id] || 0), 0), cb = c.subs.reduce((a, x) => a + (+plan.budget[x.id] || 0), 0);
-    h += `<tr class="cat" style="--c:${c.color}"><td colspan="4">${esc(c.name)} <span>${money(cp)} de ${money(cb)}</span></td></tr>`;
+    const open = expandedCats.has(c.id), cu = cb ? Math.min(100, cp / cb * 100) : (cp ? 100 : 0);
+    h += `<tr class="cat${open ? ' open' : ''}" data-c="${c.id}" style="--c:${c.color}"><td colspan="4">${esc(c.name)} <span>${money(cp)} de ${money(cb)}</span><i class="cbar"><b style="width:${cu}%;background:${cp > cb + 0.004 ? 'var(--bad)' : c.color}"></b></i></td></tr>`;
     c.subs.forEach(x => {
       const p = s.paidSub[x.id] || 0, b = +plan.budget[x.id] || 0, rest = r2(b - p);
       const use = b ? Math.min(100, p / b * 100) : (p ? 100 : 0);
-      h += `<tr class="sub"><td>${esc(x.name)}<small><i class="${p > b ? 'over' : ''}" style="width:${use}%"></i></small></td>
+      h += `<tr class="sub${open ? ' show' : ''}"><td>${esc(x.name)}<small><i class="${p > b ? 'over' : ''}" style="width:${use}%"></i></small></td>
         <td class="num">${nf.format(p)}</td>
         <td><input class="cell-in" type="text" inputmode="decimal" data-bud="${x.id}" value="${b}"></td>
         <td class="${rest < 0 ? 'rest-neg' : rest === 0 ? 'rest-zero' : 'rest-pos'}">${nf.format(rest)}</td></tr>`;
     });
   });
-  if (s.paidOther) h += `<tr class="cat" style="--c:#C9BCC0"><td colspan="4">Otros <span>sin presupuesto</span></td></tr><tr class="sub"><td>Gastos comunes sin categoría</td><td class="num">${nf.format(s.paidOther)}</td><td class="num">0,00</td><td class="rest-neg">${nf.format(-s.paidOther)}</td></tr>`;
+  if (s.paidOther) h += `<tr class="cat" style="--c:#C9BCC0"><td colspan="4">Otros <span>sin presupuesto</span></td></tr><tr class="sub show"><td>Gastos comunes sin categoría</td><td class="num">${nf.format(s.paidOther)}</td><td class="num">0,00</td><td class="rest-neg">${nf.format(-s.paidOther)}</td></tr>`;
   const rest = r2(s.P - s.Pg);
   h += `<tr class="tot"><td>TOTALES</td><td>${nf.format(s.Pg)}</td><td style="padding-right:15px">${nf.format(s.P)}</td><td class="rest-big ${rest < 0 ? 'neg' : ''}">${nf.format(rest)}</td></tr>`;
   el.innerHTML = h;
@@ -862,6 +977,11 @@ $('#budget').addEventListener('change', e => {
 $('#budget').addEventListener('focusout', () => setTimeout(() => { if ($('#budget').dataset.dirty && !$('#budget').contains(document.activeElement)) render(); }, 0));
 $('#budget').addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.dataset.bud) e.target.blur(); });
 $('#editCatsBtn').onclick = openCats;
+const expandedCats = new Set();
+$('#budget').addEventListener('click', e => {
+  const tr = e.target.closest('tr.cat[data-c]'); if (!tr || !isMobile()) return;
+  const id = tr.dataset.c; expandedCats.has(id) ? expandedCats.delete(id) : expandedCats.add(id); renderBudget(stats(M));
+});
 
 function renderCharts(s){
   if (!hasChart) return;
@@ -917,14 +1037,21 @@ function renderTable(){
     : `<tr><td colspan="8" class="muted" style="text-align:center;padding:28px">No hay movimientos con estos filtros</td></tr>`;
   $('#tCount').textContent = `${rows.length} movimiento${rows.length===1?'':'s'}`;
   $('#tSum').textContent = `Entradas ${money(rows.reduce((a,t)=>a+(t.tipo==='ingreso'?t.monto:0),0))} · Salidas ${money(rows.reduce((a,t)=>a+(t.tipo!=='ingreso'&&t.tipo!=='aporte'?t.monto:0),0))}`;
+  $('#mList').innerHTML = list.length ? list.map(t => `
+    <div class="mrow" style="--mc:${catColor(t) || COLW(t.pagadoPor)}">
+      <div class="m1"><span>${esc(catLabel(t))}</span><span class="amt" style="color:${t.tipo==='ingreso'?'var(--ok)':'inherit'}">${t.tipo==='ingreso'?'+':''}${money(t.monto)}</span></div>
+      <div class="m2"><span>${esc(t.descripcion) || '—'}</span><span>${t.moneda==='BS' ? bs(t.montoOriginal) : ''}</span></div>
+      <div class="m3"><span>${esc(t.fecha.slice(8,10) + '/' + t.fecha.slice(5,7))} · <i class="pill" style="background:${COLW(t.pagadoPor)}"></i>${esc(name(t.pagadoPor))} · <span class="tag t-${t.tipo}">${TIPOS[t.tipo]}</span></span>
+        <span class="row-actions"><button class="btn sm" data-edit="${esc(t.id)}">✏️</button><button class="btn sm" data-del="${esc(t.id)}">🗑️</button></span></div>
+    </div>`).join('') : '<div class="muted" style="text-align:center;padding:24px">No hay movimientos con estos filtros</div>';
   $('#tMore').innerHTML = rows.length > PAGE ? `<button class="btn sm" id="tToggle">${showAll ? 'Mostrar menos' : `Ver los ${rows.length}`}</button>` : '';
 }
-$('#tBody').addEventListener('click', e => {
+['#tBody','#mList'].forEach(sel => $(sel).addEventListener('click', e => {
   const ed = e.target.closest('[data-edit]'), dl = e.target.closest('[data-del]');
   if (ed) startEdit(ed.dataset.edit);
   if (dl) { const t = state.tx.find(x => x.id === dl.dataset.del);
     if (t && confirm(`¿Eliminar "${t.descripcion || catLabel(t)}" por ${money(t.monto)}?`)) { removeTx(t.id); toast('Movimiento eliminado'); if (state.editingId === t.id) resetForm(); } }
-});
+}));
 $('#tMore').addEventListener('click', e => { if (e.target.id === 'tToggle') { showAll = !showAll; renderTable(); } });
 ['#qText','#qTipo','#qCat','#qWho','#qFrom','#qTo','#qMonth'].forEach(s => $(s).addEventListener('input', renderTable));
 $('#qClear').onclick = () => { ['#qText','#qTipo','#qCat','#qWho','#qFrom','#qTo'].forEach(s => $(s).value = ''); $('#qMonth').checked = true; renderTable(); };
@@ -1150,6 +1277,17 @@ $('#sTest').onclick = async () => {
   catch (e) { toast('✗ ' + e.message); }
 };
 $('#sWipe').onclick = () => { if (confirm('¿Borrar TODOS los movimientos de este navegador? (No afecta Google Sheets)')) { state.tx = []; state.pending = []; persistTx(); save(LS.pending, []); render(); toast('Datos locales borrados'); } };
+
+/* ---------- Pestañas (teléfono) ---------- */
+function isMobile(){ return matchMedia('(max-width:700px)').matches; }
+function setTab(t){
+  document.body.dataset.tab = t; save('fp_tab', t);
+  document.querySelectorAll('#tabbar [data-tab]').forEach(b => b.classList.toggle('on', b.dataset.tab === t));
+  if (isMobile()) window.scrollTo({ top:0 });
+  if (t === 'presupuesto' && hasChart) setTimeout(() => { donut.resize(); trend.resize(); }, 30);
+}
+$('#tabbar').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setTab(b.dataset.tab); });
+setTab(load('fp_tab', 'inicio'));
 
 $('#syncBox').onclick = () => { if (lastError) alert(lastError); else pull(true); };
 
