@@ -247,7 +247,8 @@ table.hist{width:100%;border-collapse:collapse;min-width:780px}
 .tabbar,.pcards,.mlist,.cbar{display:none}
 @media (max-width:700px){
   body{font-size:15px}
-  main{padding:14px 0 calc(92px + env(safe-area-inset-bottom))}
+  main.wrap{padding-top:14px;padding-bottom:calc(var(--tabh, 96px) + 40px)}
+  .toast{bottom:calc(var(--tabh, 96px) + 16px)}
   .brand h1{font-size:18px}.logo{width:30px;height:30px;font-size:16px}
   /* solo se ve la sección de la pestaña activa */
   body:not([data-tab=inicio]) [data-sec=inicio],
@@ -1036,7 +1037,7 @@ function renderTable(){
       <td><div class="row-actions"><button class="btn sm" data-edit="${esc(t.id)}" title="Editar">✏️</button><button class="btn sm" data-del="${esc(t.id)}" title="Eliminar">🗑️</button></div></td></tr>`).join('')
     : `<tr><td colspan="8" class="muted" style="text-align:center;padding:28px">No hay movimientos con estos filtros</td></tr>`;
   $('#tCount').textContent = `${rows.length} movimiento${rows.length===1?'':'s'}`;
-  $('#tSum').textContent = `Entradas ${money(rows.reduce((a,t)=>a+(t.tipo==='ingreso'?t.monto:0),0))} · Salidas ${money(rows.reduce((a,t)=>a+(t.tipo!=='ingreso'&&t.tipo!=='aporte'?t.monto:0),0))}`;
+  $('#tSum').textContent = `Ingresos extra ${money(rows.reduce((a,t)=>a+(t.tipo==='ingreso'?t.monto:0),0))} · Gastos ${money(rows.reduce((a,t)=>a+(isHouse(t)||t.tipo==='individual'?t.monto:0),0))}`;
   $('#mList').innerHTML = list.length ? list.map(t => `
     <div class="mrow" style="--mc:${catColor(t) || COLW(t.pagadoPor)}">
       <div class="m1"><span>${esc(catLabel(t))}</span><span class="amt" style="color:${t.tipo==='ingreso'?'var(--ok)':'inherit'}">${t.tipo==='ingreso'?'+':''}${money(t.monto)}</span></div>
@@ -1286,6 +1287,10 @@ function setTab(t){
   if (isMobile()) window.scrollTo({ top:0 });
   if (t === 'presupuesto' && hasChart) setTimeout(() => { donut.resize(); trend.resize(); }, 30);
 }
+// Espacio al final = altura real de la barra (varía según el teléfono y el tamaño de letra)
+const fitTabbar = () => document.documentElement.style.setProperty('--tabh', $('#tabbar').offsetHeight + 'px');
+if (window.ResizeObserver) new ResizeObserver(fitTabbar).observe($('#tabbar'));
+window.addEventListener('resize', fitTabbar); fitTabbar();
 $('#tabbar').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) setTab(b.dataset.tab); });
 setTab(load('fp_tab', 'inicio'));
 
